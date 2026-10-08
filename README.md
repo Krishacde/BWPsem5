@@ -6,7 +6,7 @@
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Krishacde/project-sem-5.git
+git clone https://github.com/Krishacde/BWPsem5.git
 cd project-sem-5
 ```
 
