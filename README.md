@@ -7,7 +7,7 @@
 
 ```bash
 git clone https://github.com/Krishacde/BWPsem5.git
-cd project-sem-5
+
 ```
 
 ## 2. Get the Latest Changes (Before You Start Working)
