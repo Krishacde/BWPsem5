@@ -50,6 +50,7 @@ const morgan = require("morgan");
 const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/auth");
+const ideaRoutes = require("./routes/ideas");
 const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
@@ -98,6 +99,8 @@ app.get("/api", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+
+app.use("/api/ideas", ideaRoutes);
 
 
 // =========================
