@@ -1,4 +1,4 @@
-// Same values as the Idea model in the backend
+// same as backend idea model
 export const categories = [
   "Technology",
   "Healthcare",

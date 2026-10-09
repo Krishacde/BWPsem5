@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import CreateIdea from "./pages/CreateIdea";
+import Ideas from "./pages/Ideas";
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -52,6 +53,10 @@ const Navbar = () => {
         <div className="nav-links">
           <Link to="/" className="nav-link">
             Home
+          </Link>
+
+          <Link to="/ideas" className="nav-link">
+            Explore
           </Link>
 
           <Link to="/create-idea" className="nav-link">
@@ -115,6 +120,11 @@ const App = () => {
           <Route
             path="/create-idea"
             element={<CreateIdea />}
+          />
+
+          <Route
+            path="/ideas"
+            element={<Ideas />}
           />
         </Routes>
 

@@ -15,7 +15,7 @@ const emptyForm = {
   tags: ""
 };
 
-// "React, Node" -> ["React", "Node"]
+// comma text to array
 const toList = (text) => {
   return text
     .split(",")
@@ -32,7 +32,7 @@ const CreateIdea = () => {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Only logged-in users can post ideas
+  // login check
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       navigate("/login");

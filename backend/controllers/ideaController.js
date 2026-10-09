@@ -1,6 +1,6 @@
 const Idea = require("../models/Idea");
 
-// Fields the author is allowed to set
+// allowed fields
 const ideaFields = [
   "title",
   "description",
@@ -12,7 +12,7 @@ const ideaFields = [
 ];
 
 
-// GET ALL IDEAS
+// get all ideas
 const getIdeas = async (req, res, next) => {
   try {
     const { search, category, stage, sort } = req.query;
@@ -20,7 +20,7 @@ const getIdeas = async (req, res, next) => {
     const filter = {};
 
     if (search) {
-      // Escape special characters so the search is treated as plain text
+      // escape special characters
       const text = search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
       filter.$or = [
@@ -58,7 +58,7 @@ const getIdeas = async (req, res, next) => {
 };
 
 
-// GET SINGLE IDEA
+// get one idea
 const getIdeaById = async (req, res, next) => {
   try {
     const idea = await Idea.findById(req.params.id)
@@ -85,7 +85,7 @@ const getIdeaById = async (req, res, next) => {
 };
 
 
-// CREATE IDEA
+// create idea
 const createIdea = async (req, res, next) => {
   try {
     const { title, description, category } = req.body;
@@ -124,7 +124,7 @@ const createIdea = async (req, res, next) => {
 };
 
 
-// UPDATE IDEA
+// update idea
 const updateIdea = async (req, res, next) => {
   try {
     const idea = await Idea.findById(req.params.id);
@@ -169,7 +169,7 @@ const updateIdea = async (req, res, next) => {
 };
 
 
-// DELETE IDEA
+// delete idea
 const deleteIdea = async (req, res, next) => {
   try {
     const idea = await Idea.findById(req.params.id);

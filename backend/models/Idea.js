@@ -67,7 +67,7 @@ const ideaSchema = new mongoose.Schema(
       required: true
     },
 
-    // Used by the upvotes feature
+    // for upvotes
     upvotes: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -75,7 +75,7 @@ const ideaSchema = new mongoose.Schema(
       }
     ],
 
-    // Used by the comments feature
+    // for comments
     comments: [
       {
         user: {
@@ -95,7 +95,7 @@ const ideaSchema = new mongoose.Schema(
       }
     ],
 
-    // Used by the proposals feature
+    // for proposals
     teamMembers: [
       {
         type: mongoose.Schema.Types.ObjectId,
