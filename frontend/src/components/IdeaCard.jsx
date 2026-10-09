@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import { Calendar, User, Users } from "lucide-react";
 
 const IdeaCard = ({ idea }) => {
   return (
-    <div className="idea-card">
+    <Link to={`/ideas/${idea._id}`} className="idea-card">
 
       <div className="idea-badges">
         <span className="badge">
@@ -45,7 +46,7 @@ const IdeaCard = ({ idea }) => {
         </span>
       </div>
 
-    </div>
+    </Link>
   );
 };
 

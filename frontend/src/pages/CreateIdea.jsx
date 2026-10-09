@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Lightbulb } from "lucide-react";
 
 import { categories, stages } from "../ideaOptions";
@@ -26,10 +26,13 @@ const toList = (text) => {
 const CreateIdea = () => {
   const navigate = useNavigate();
 
+  // id is only there on the edit page
+  const { id } = useParams();
+  const isEdit = Boolean(id);
+
   const [form, setForm] = useState(emptyForm);
 
   const [message, setMessage] = useState("");
-  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
   // login check
@@ -38,6 +41,43 @@ const CreateIdea = () => {
       navigate("/login");
     }
   }, [navigate]);
+
+  // fill form when editing
+  useEffect(() => {
+    if (!isEdit) return;
+
+    const getIdea = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/ideas/${id}`
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          setMessage(data.message || "Could not load idea");
+          return;
+        }
+
+        setForm({
+          title: data.idea.title,
+          description: data.idea.description,
+          category: data.idea.category,
+          stage: data.idea.stage,
+          requiredSkills: data.idea.requiredSkills.join(", "),
+          teamSize: data.idea.teamSize,
+          tags: data.idea.tags.join(", ")
+        });
+
+      } catch (error) {
+        setMessage(
+          "Unable to connect to the server"
+        );
+      }
+    };
+
+    getIdea();
+  }, [id, isEdit]);
 
   const handleChange = (e) => {
     setForm({
@@ -50,14 +90,17 @@ const CreateIdea = () => {
     e.preventDefault();
 
     setMessage("");
-    setSuccess("");
     setLoading(true);
+
+    const url = isEdit
+      ? `http://localhost:5000/api/ideas/${id}`
+      : "http://localhost:5000/api/ideas";
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/ideas",
+        url,
         {
-          method: "POST",
+          method: isEdit ? "PUT" : "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -77,13 +120,11 @@ const CreateIdea = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        setMessage(data.message || "Could not post idea");
+        setMessage(data.message || "Could not save idea");
         return;
       }
 
-      setSuccess("Idea posted successfully!");
-
-      setForm(emptyForm);
+      navigate(`/ideas/${data.idea._id}`);
 
     } catch (error) {
       setMessage(
@@ -105,10 +146,14 @@ const CreateIdea = () => {
             <Lightbulb size={23} />
           </div>
 
-          <h1>Post your idea</h1>
+          <h1>
+            {isEdit ? "Edit your idea" : "Post your idea"}
+          </h1>
 
           <p>
-            Share what you want to build and find your team.
+            {isEdit
+              ? "Update the details of your idea."
+              : "Share what you want to build and find your team."}
           </p>
 
         </div>
@@ -117,12 +162,6 @@ const CreateIdea = () => {
         {message && (
           <div className="form-message">
             {message}
-          </div>
-        )}
-
-        {success && (
-          <div className="form-success">
-            {success}
           </div>
         )}
 
@@ -278,8 +317,8 @@ const CreateIdea = () => {
             disabled={loading}
           >
             {loading
-              ? "Posting..."
-              : "Post Idea"}
+              ? "Saving..."
+              : isEdit ? "Save Changes" : "Post Idea"}
           </button>
 
         </form>
