@@ -1,0 +1,59 @@
+/* =========================
+   IDEA FORM
+========================= */
+
+.idea-form-card {
+  max-width: 640px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+textarea.form-input,
+select.form-input {
+  font: inherit;
+}
+
+textarea.form-input {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.form-hint {
+  display: block;
+
+  margin-top: 6px;
+
+  color: var(--text-muted);
+
+  font-size: 12px;
+}
+
+.form-success {
+  margin-bottom: 20px;
+
+  padding: 11px 13px;
+
+  border-radius: 9px;
+
+  background: var(--green-light);
+  color: var(--green);
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 650px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
